@@ -1,291 +1,72 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CRUD — Skate</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
-    *{box-sizing:border-box}
-    body{font-family:Inter,Segoe UI,Arial; margin:0; background:linear-gradient(180deg,var(--bg),#071028); color:#e6eef6; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem}
-    .container{width:100%; max-width:980px; background:var(--card); border-radius:12px; padding:18px; box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-    header{display:flex; align-items:center; justify-content:space-between; gap:12px}
-    h1{font-size:1.25rem; margin:0}
-    p.lead{margin:6px 0 0; color:var(--muted); font-size:0.95rem}
-
-    .controls{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap}
-    .card{background:var(--glass); padding:12px; border-radius:10px}
-
-    label{display:block; font-size:.85rem; color:var(--muted); margin-bottom:6px}
-    input[type=text], input[type=search], textarea, select{width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); background:transparent; color:inherit}
-    textarea{resize:vertical}
-
-    .form-grid{display:grid; grid-template-columns:1fr 150px; gap:10px; align-items:end}
-    .btn{cursor:pointer; padding:10px 12px; border-radius:8px; border:0; background:var(--accent); color:#042027; font-weight:600}
-    .btn.secondary{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); font-weight:600}
-    .btn.danger{background:#ef4444; color:white}
-
-    .table{width:100%; margin-top:14px; border-collapse:collapse}
-    .table th, .table td{padding:8px 10px; text-align:left; border-bottom:1px dashed rgba(255,255,255,0.03)}
-    .table th{font-size:.85rem; color:var(--muted)}
-
-    .actions{display:flex; gap:6px}
-    .empty{padding:18px; text-align:center; color:var(--muted)}
-
-    .search-wrap{display:flex; gap:8px; align-items:center}
-    footer{margin-top:12px; color:var(--muted); font-size:.85rem}
-
-    @media (max-width:640px){.form-grid{grid-template-columns:1fr} .form-grid button{width:100%}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRUD — Skate</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>CRUD — Skate</h1>
-        <p class="lead">Incluir, Alterar, Excluir e Consultar itens (ex.: manobra, shape, objetivo).</p>
-      </div>
-      <div style="text-align:right; color:var(--muted); font-size:.9rem">HTML + CSS + JS (localStorage)</div>
-    </header>
+<div class="container">
+<header>
+<div>
+<h1>CRUD — Skate</h1>
+<p class="lead">Incluir, Alterar, Excluir e Consultar itens (ex.: manobra, shape, objetivo).</p>
+</div>
+<div class="info">HTML + CSS + JS (localStorage)</div>
+</header>
 
-    <section class="card" style="margin-top:14px">
-      <form id="form">
-        <div style="display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap">
-          <div style="flex:1; min-width:180px">
-            <label for="title">Nome</label>
-            <input id="title" name="title" type="text" placeholder="Ex: Ollie" required />
-          </div>
-          <div style="width:160px">
-            <label for="category">Categoria</label>
-            <select id="category" name="category">
-              <option value="Manobra">Manobra</option>
-              <option value="Shape">Shape</option>
-              <option value="Acessório">Acessório</option>
-              <option value="Outro">Outro</option>
-            </select>
-          </div>
-        </div>
 
-        <div style="margin-top:10px">
-          <label for="desc">Descrição</label>
-          <textarea id="desc" name="desc" rows="3" placeholder="Detalhes... (opcional)"></textarea>
-        </div>
+<section class="card">
+<form id="form">
+<div class="inputs">
+<div>
+<label for="title">Nome</label>
+<input id="title" type="text" placeholder="Ex: Ollie" required>
+</div>
+<div>
+<label for="category">Categoria</label>
+<select id="category">
+<option value="Manobra">Manobra</option>
+<option value="Shape">Shape</option>
+<option value="Acessório">Acessório</option>
+<option value="Outro">Outro</option>
+</select>
+</div>
+</div>
 
-        <div class="form-grid" style="margin-top:10px">
-          <div style="display:flex; gap:8px">
-            <button class="btn" id="btnAdd">Incluir</button>
-            <button class="btn secondary" id="btnClear" type="button">Limpar</button>
-          </div>
-          <div style="display:flex; gap:8px; justify-content:flex-end">
-            <button class="btn secondary" id="btnExport" type="button">Exportar JSON</button>
-            <button class="btn secondary" id="btnImport" type="button">Importar JSON</button>
-          </div>
-        </div>
-      </form>
-    </section>
 
-    <section class="card" style="margin-top:12px">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap">
-        <div class="search-wrap" style="flex:1; min-width:220px">
-          <label for="q">Consultar</label>
-          <input id="q" type="search" placeholder="Pesquisar por nome ou categoria" />
-        </div>
-        <div style="display:flex; gap:8px; align-items:end">
-          <button class="btn secondary" id="btnReset" type="button">Resetar dados</button>
-        </div>
-      </div>
+<div>
+<label for="desc">Descrição</label>
+<textarea id="desc" rows="3" placeholder="Detalhes... (opcional)"></textarea>
+</div>
 
-      <div id="listWrap">
-        <!-- tabela gerada pelo JS -->
-      </div>
-    </section>
 
-    <footer>
-      <small>Dica: os dados ficam salvos no seu navegador (localStorage). Use Exportar/Importar para transferir.</small>
-    </footer>
-  </div>
+<div class="buttons">
+<button class="btn" id="btnAdd">Incluir</button>
+<button class="btn secondary" id="btnClear" type="button">Limpar</button>
+<button class="btn secondary" id="btnExport" type="button">Exportar JSON</button>
+<button class="btn secondary" id="btnImport" type="button">Importar JSON</button>
+</div>
+</form>
+</section>
 
-  <script>
-    // Estrutura de um item: { id, title, category, desc, createdAt }
-    const STORAGE_KEY = 'crud_skate_items_v1';
 
-    // Helpers
-    const $ = sel => document.querySelector(sel);
-    const form = $('#form');
-    const titleInput = $('#title');
-    const categoryInput = $('#category');
-    const descInput = $('#desc');
-    const qInput = $('#q');
-    const listWrap = $('#listWrap');
-    const btnAdd = $('#btnAdd');
-    const btnClear = $('#btnClear');
-    const btnExport = $('#btnExport');
-    const btnImport = $('#btnImport');
-    const btnReset = $('#btnReset');
+<section class="card">
+<div class="search">
+<input id="q" type="search" placeholder="Pesquisar por nome ou categoria">
+<button class="btn secondary" id="btnReset" type="button">Resetar dados</button>
+</div>
+<div id="listWrap"></div>
+</section>
 
-    let items = loadItems();
-    let editingId = null;
 
-    renderList(items);
+<footer>
+<small>Os dados ficam salvos no seu navegador (localStorage).</small>
+</footer>
+</div>
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const title = titleInput.value.trim();
-      if(!title) return alert('Preencha o nome.');
 
-      const payload = {
-        title,
-        category: categoryInput.value,
-        desc: descInput.value.trim()
-      };
-
-      if(editingId){
-        alterar(editingId, payload);
-      } else {
-        incluir(payload);
-      }
-
-      form.reset();
-      titleInput.focus();
-    });
-
-    btnClear.addEventListener('click', () => form.reset());
-
-    qInput.addEventListener('input', () => {
-      const q = qInput.value.trim().toLowerCase();
-      const filtered = items.filter(it => it.title.toLowerCase().includes(q) || it.category.toLowerCase().includes(q) || (it.desc||'').toLowerCase().includes(q));
-      renderList(filtered);
-    });
-
-    btnReset.addEventListener('click', () => {
-      if(!confirm('Tem certeza que quer apagar todos os dados?')) return;
-      items = [];
-      saveItems();
-      renderList(items);
-    });
-
-    btnExport.addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(items, null, 2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'crud_skate_items.json';
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    btnImport.addEventListener('click', async () => {
-      const input = document.createElement('input');
-      input.type = 'file'; input.accept = '.json,application/json';
-      input.onchange = () => {
-        const file = input.files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = e => {
-          try{
-            const data = JSON.parse(e.target.result);
-            if(!Array.isArray(data)) throw new Error('Formato inválido');
-            // normalize
-            items = data.map((it, idx) => ({ id:it.id||('i'+Date.now()+idx), title:it.title||'', category:it.category||'Outro', desc:it.desc||'', createdAt:it.createdAt||Date.now() }));
-            saveItems(); renderList(items);
-            alert('Importado com sucesso!');
-          }catch(err){alert('Erro ao importar: '+err.message)}
-        }
-        reader.readAsText(file);
-      };
-      input.click();
-    });
-
-    // CRUD functions
-    function incluir(payload){
-      const id = 'i'+Date.now();
-      const item = { id, ...payload, createdAt: Date.now() };
-      items.unshift(item);
-      saveItems();
-      renderList(items);
-    }
-
-    function alterar(id, payload){
-      const idx = items.findIndex(it => it.id === id);
-      if(idx === -1) return alert('Item não encontrado');
-      items[idx] = { ...items[idx], ...payload };
-      editingId = null;
-      btnAdd.textContent = 'Incluir';
-      saveItems();
-      renderList(items);
-    }
-
-    function excluir(id){
-      if(!confirm('Excluir este item?')) return;
-      items = items.filter(it => it.id !== id);
-      saveItems();
-      renderList(items);
-    }
-
-    function consultar(id){
-      const it = items.find(x=>x.id===id);
-      if(!it) return alert('Item não encontrado');
-      alert('Consulta:\n\nNome: '+it.title+'\nCategoria: '+it.category+'\nDescrição: '+(it.desc||'(vazio)'));
-    }
-
-    function editar(id){
-      const it = items.find(x=>x.id===id);
-      if(!it) return alert('Item não encontrado');
-      editingId = id;
-      titleInput.value = it.title;
-      categoryInput.value = it.category;
-      descInput.value = it.desc || '';
-      btnAdd.textContent = 'Alterar';
-      titleInput.focus();
-    }
-
-    // Persistence
-    function loadItems(){
-      try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : sampleData(); }catch(e){return sampleData();}
-    }
-    function saveItems(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
-
-    function sampleData(){
-      return [
-        { id:'i1', title:'Ollie', category:'Manobra', desc:'Base de quase todas as manobras.', createdAt:Date.now()-1000*60*60*24 },
-        { id:'i2', title:'Kickflip', category:'Manobra', desc:'Flip do skate com giro do pé.', createdAt:Date.now()-1000*60*60*12 },
-        { id:'i3', title:'Shape 8.0', category:'Shape', desc:'Shape pop tradicional, 8.0 polegadas.', createdAt:Date.now()-1000*60*60*2 }
-      ];
-    }
-
-    // Render
-    function renderList(list){
-      if(!list || list.length === 0){
-        listWrap.innerHTML = '<div class="empty">Nenhum item. Inclua algo usando o formulário acima.</div>';
-        return;
-      }
-
-      let html = '<table class="table"><thead><tr><th>Nome</th><th>Categoria</th><th>Descrição</th><th>Criado</th><th>Ações</th></tr></thead><tbody>';
-      for(const it of list){
-        const date = new Date(it.createdAt);
-        html += `<tr><td>${escapeHtml(it.title)}</td><td>${escapeHtml(it.category)}</td><td>${escapeHtml((it.desc||'').slice(0,80))}</td><td>${date.toLocaleString()}</td><td class="actions">`;
-        html += `<button class="btn secondary" data-action="consult" data-id="${it.id}">Consultar</button>`;
-        html += `<button class="btn" data-action="edit" data-id="${it.id}">Alterar</button>`;
-        html += `<button class="btn danger" data-action="delete" data-id="${it.id}">Excluir</button>`;
-        html += `</td></tr>`;
-      }
-      html += '</tbody></table>';
-      listWrap.innerHTML = html;
-
-      // attach listeners
-      listWrap.querySelectorAll('button').forEach(btn => {
-        const act = btn.getAttribute('data-action');
-        const id = btn.getAttribute('data-id');
-        btn.addEventListener('click', () => {
-          if(act === 'delete') excluir(id);
-          if(act === 'edit') editar(id);
-          if(act === 'consult') consultar(id);
-        });
-      });
-    }
-
-    // small escape to avoid HTML injection in the table
-    function escapeHtml(str){ return (str||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]); }
-
-  </script>
+<script src="script.js"></script>
 </body>
 </html>
