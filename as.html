@@ -1,72 +1,11 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CRUD — Skate</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-<header>
-<div>
-<h1>CRUD — Skate</h1>
-<p class="lead">Incluir, Alterar, Excluir e Consultar itens (ex.: manobra, shape, objetivo).</p>
-</div>
-<div class="info">HTML + CSS + JS (localStorage)</div>
-</header>
-
-
-<section class="card">
-<form id="form">
-<div class="inputs">
-<div>
-<label for="title">Nome</label>
-<input id="title" type="text" placeholder="Ex: Ollie" required>
-</div>
-<div>
-<label for="category">Categoria</label>
-<select id="category">
-<option value="Manobra">Manobra</option>
-<option value="Shape">Shape</option>
-<option value="Acessório">Acessório</option>
-<option value="Outro">Outro</option>
-</select>
-</div>
-</div>
-
-
-<div>
-<label for="desc">Descrição</label>
-<textarea id="desc" rows="3" placeholder="Detalhes... (opcional)"></textarea>
-</div>
-
-
-<div class="buttons">
-<button class="btn" id="btnAdd">Incluir</button>
-<button class="btn secondary" id="btnClear" type="button">Limpar</button>
-<button class="btn secondary" id="btnExport" type="button">Exportar JSON</button>
-<button class="btn secondary" id="btnImport" type="button">Importar JSON</button>
-</div>
-</form>
-</section>
-
-
-<section class="card">
-<div class="search">
-<input id="q" type="search" placeholder="Pesquisar por nome ou categoria">
-<button class="btn secondary" id="btnReset" type="button">Resetar dados</button>
-</div>
-<div id="listWrap"></div>
-</section>
-
-
-<footer>
-<small>Os dados ficam salvos no seu navegador (localStorage).</small>
-</footer>
-</div>
-
-
-<script src="script.js"></script>
-</body>
-</html>
+<table>
+<tr><td>Marco</td></tr>
+<tr><td>Luiz</td></tr>
+<tr><td>Samuel</td></tr>
+<tr><td>Sthevan</td></tr>
+</table>
+INSERT INTO nomes VALUES ('Marco'),('Luiz'),('Samuel'),('Sthevan');
+SELECT * FROM nomes;
+DELETE FROM nomes WHERE nome='Luiz';
+ALTER TABLE nomes ADD id INT;
+DROP TABLE nomes;
