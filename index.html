@@ -6,29 +6,29 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <table>
-    <caption>Lista de Amigos</caption>
-    <tr><td>Marco</td></tr>
-    <tr><td>Luiz</td></tr>
-    <tr><td>Samuel</td></tr>
-    <tr><td>Sthevan</td></tr>
+  <h1>Tabela de Amigos</h1>
+
+  <table id="tabela">
+    <thead>
+      <tr><th>Nome</th></tr>
+    </thead>
+    <tbody id="corpo-tabela">
+      <tr><td>Marco</td></tr>
+      <tr><td>Luiz</td></tr>
+      <tr><td>Samuel</td></tr>
+      <tr><td>Sthevan</td></tr>
+    </tbody>
   </table>
 
-  <pre>
-CREATE TABLE amigos (nome TEXT);
+  <div class="botoes">
+    <input type="text" id="nome" placeholder="Digite um nome">
+    <button onclick="inserir()">INSERT</button>
+    <button onclick="selecionar()">SELECT</button>
+    <button onclick="alterar()">ALTER</button>
+    <button onclick="deletar()">DELETE</button>
+    <button onclick="dropar()">DROP TABLE</button>
+  </div>
 
-INSERT INTO amigos VALUES ('Marco');
-INSERT INTO amigos VALUES ('Luiz');
-INSERT INTO amigos VALUES ('Samuel');
-INSERT INTO amigos VALUES ('Sthevan');
-
-SELECT * FROM amigos;
-
-DELETE FROM amigos WHERE nome='Luiz';
-
-ALTER TABLE amigos ADD COLUMN id INT;
-
-DROP TABLE amigos;
-  </pre>
+  <script src="script.js"></script>
 </body>
 </html>

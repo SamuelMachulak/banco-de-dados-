@@ -1,17 +1,18 @@
-# 📋 Tabela de Amigos
+# 🧱 Tabela de Amigos — Simulador SQL Interativo
 
-Um site simples que exibe uma tabela com os nomes **Marco**, **Luiz**, **Samuel** e **Sthevan**, junto de comandos SQL básicos.
+Um projeto simples feito com **HTML**, **CSS** e **JavaScript**, que simula comandos SQL básicos (**INSERT**, **SELECT**, **ALTER**, **DELETE** e **DROP TABLE**) usando botões interativos.
 
-## 🧱 Tecnologias
-- HTML
-- CSS
-- SQL (comandos: INSERT, SELECT, DELETE, ALTER e DROP)
+## 🚀 Funcionalidades
 
-## 💾 SQL incluído
-```sql
-CREATE TABLE amigos (nome TEXT);
-INSERT INTO amigos VALUES ('Marco'), ('Luiz'), ('Samuel'), ('Sthevan');
-SELECT * FROM amigos;
-DELETE FROM amigos WHERE nome='Luiz';
-ALTER TABLE amigos ADD COLUMN id INT;
-DROP TABLE amigos;
+- **INSERT:** adiciona um novo nome à tabela.  
+- **SELECT:** mostra todos os nomes atuais da tabela.  
+- **ALTER:** permite alterar um nome existente.  
+- **DELETE:** remove um nome da tabela.  
+- **DROP TABLE:** apaga todos os dados (limpa a tabela).  
+
+## 🧩 Tecnologias utilizadas
+- HTML  
+- CSS  
+- JavaScript  
+
+## 💾 Estrutura do projeto
