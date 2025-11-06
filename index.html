@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Tabela de Amigos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <table>
+    <caption>Lista de Amigos</caption>
+    <tr><td>Marco</td></tr>
+    <tr><td>Luiz</td></tr>
+    <tr><td>Samuel</td></tr>
+    <tr><td>Sthevan</td></tr>
+  </table>
+
+  <pre>
+CREATE TABLE amigos (nome TEXT);
+
+INSERT INTO amigos VALUES ('Marco');
+INSERT INTO amigos VALUES ('Luiz');
+INSERT INTO amigos VALUES ('Samuel');
+INSERT INTO amigos VALUES ('Sthevan');
+
+SELECT * FROM amigos;
+
+DELETE FROM amigos WHERE nome='Luiz';
+
+ALTER TABLE amigos ADD COLUMN id INT;
+
+DROP TABLE amigos;
+  </pre>
+</body>
+</html>
